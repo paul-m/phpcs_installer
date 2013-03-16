@@ -19,7 +19,7 @@ class Installer extends LibraryInstaller
     {
         // fix package name to denote single directory
         $name = str_replace(array('/', '\\'), '-', $package->getPrettyName());
-        return $this->vendorDir . 'squizlabs/php_codesniffer/CodeSniffer/Standards/' . $name;
+        return $this->vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/' . $name;
     }
 
     /**
