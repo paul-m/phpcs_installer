@@ -30,19 +30,39 @@ In your standards repository add
 Now either `git clone YOUR_REPO` and `composer install`.
 Or require your standard with composer.
 
-git install
------------
 
-You can alternately install your standard directly within a pear-installed phpcs using:
+intention
+---------
+
+For your PHP projects add `phpcs-standard`s to the `require-dev` section of the projects `composer.json`.
+The installer will take care to fetch anything needed for you to utilise them.
+
+```json
+{
+  "name": "you/your-project-x",
+  "require-dev": {
+    "any-vendor/some-standard": "*"
+  }
+}
+```
+
+```sh
+./vendor/bin/phpcs --standard=some-standard ./src
+```
+
+generic git install
+-------------------
+
+You can alternately install your standard within a pear-installed phpcs using pear and git:
 ```
 cd `pear config-get php_dir`/PHP/CodeSniffer/Standards
 git clone YOUR_REPO_LINK [STANDARD_NAME]
 ```
 
-The installer is not needed for direct git install.
+The installer is not needed (or used) for direct installation.
 
 limitations
 -----------
 
-* your standard must define `/ruleset.xml` and `/Sniff/` at exactly those positions
-* does not link tests (phpcs does not ship tests with composer)
+* your standard must define `./ruleset.xml` and `./Sniff/` at exactly those positions
+* the installer does not link tests as phpcs does not ship those with composer installations
