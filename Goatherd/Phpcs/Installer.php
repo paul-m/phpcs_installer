@@ -21,9 +21,13 @@ class Installer extends LibraryInstaller
             isset($extra['phpcs-standard'])
             ? $extra['phpcs-standard']
             : $package->getPrettyName();
+        $path =
+            isset($extra['phpcs-path'])
+            ? $extra['phpcs-path']
+            : 'squizlabs/php_codesniffer/CodeSniffer/Standards';
         // package name must denote a single directoy only
         $name = str_replace(array('/', '\\'), '-', $name);
-        return $this->vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards/' . $name;
+        return $this->vendorDir . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $name;
     }
 
     /** {@inheritDoc} */
