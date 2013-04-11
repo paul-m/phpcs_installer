@@ -1,2 +1,2 @@
-/tests export-ignore
-.travis.yml export-ignore
+/README.md export-ignore
+/LICENCE.txt export-ignore
