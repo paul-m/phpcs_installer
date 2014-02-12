@@ -6,6 +6,10 @@ use Composer\Installer\LibraryInstaller;
 use Composer\Repository\InstalledRepositoryInterface;
 use Composer\Package\PackageInterface;
 
+use Composer\Composer;
+use Composer\IO\IOInterface;
+use Composer\Util\Filesystem;
+
 /**
  * Install within CodeSniffer.
  *
@@ -15,10 +19,50 @@ use Composer\Package\PackageInterface;
 class Installer extends LibraryInstaller
 {
 
+//  public function __construct(IOInterface $io, Composer $composer, $type = 'phpcs-standard', Filesystem $filesystem = null) {
+//    parent::__construct($io, $composer, $type, $filesystem);
+//  }
+
+  protected function getStandards(PackageInterface $package) {
+    $standards = array();
+    $extra = $package->getExtra();
+    if (isset($extra)) {
+      $standards = isset($extra['phpcs-standards'])
+        ? $extra['phpcs-standards']
+        : array();
+    }
+    return $standards;
+  }
+
+  protected function getPhpcsStandardsPath() {
+    return 'squizlabs/php_codesniffer/CodeSniffer/Standards';
+  }
+
+//  public function isInstalled(InstalledRepositoryInterface $repo, PackageInterface $package) {
+//    // Check for our symlinks.
+//    $standards = $this->getStandards($package);
+//    foreach($standards as $name=>$path) {
+//      if 
+//    }
+//
+//    if(
+//    ) {
+//      return parent::isInstalled($repo, $package);
+//    }
+//    return FALSE;
+//  }
+
+
   public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
     print_r($repo);
     print_r($package);
     parent::install($repo, $package);
+  }
+
+  public function update(InstalledRepositoryInterface $repo, PackageInterface $initial, PackageInterface $target) {
+    print_r($repo);
+    print_r($initial);
+    parent::update($repo, $initial, $target);
   }
 
     /** {@inheritDoc} */
