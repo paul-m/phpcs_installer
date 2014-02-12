@@ -13,6 +13,13 @@ use Composer\Installer\LibraryInstaller;
  */
 class Installer extends LibraryInstaller
 {
+
+  public function install(InstalledRepositoryInterface $repo, PackageInterface $package){
+    error_log(print_r($repo, TRUE));
+    error_log(print_r($package, TRUE));
+    parent::install($repo, $package);
+  }
+
     /** {@inheritDoc} */
     public function getInstallPath(PackageInterface $package)
     {
