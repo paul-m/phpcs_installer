@@ -53,11 +53,11 @@ class Installer extends LibraryInstaller
 //  }
 
 
-//  public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
-//    print_r($repo);
-//    print_r($package);
-//    parent::install($repo, $package);
-//  }
+  public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
+    print_r($repo);
+    print_r($package);
+    parent::install($repo, $package);
+  }
 //
 //  public function update(InstalledRepositoryInterface $repo, PackageInterface $initial, PackageInterface $target) {
 //    print_r($repo);
