@@ -16,7 +16,7 @@ use Composer\Util\Filesystem;
  * Name of the package standard defaults to the pretty name.
  * It may be replaced by the extra:phpcs-standard property of the composer.json.
  */
-class PhpcsInstaller extends LibraryInstaller
+class Installer extends LibraryInstaller
 {
 
 //  public function __construct(IOInterface $io, Composer $composer, $type = 'phpcs-standard', Filesystem $filesystem = null) {
@@ -53,17 +53,17 @@ class PhpcsInstaller extends LibraryInstaller
 //  }
 
 
-  public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
-    print_r($repo);
-    print_r($package);
-    parent::install($repo, $package);
-  }
-
-  public function update(InstalledRepositoryInterface $repo, PackageInterface $initial, PackageInterface $target) {
-    print_r($repo);
-    print_r($initial);
-    parent::update($repo, $initial, $target);
-  }
+//  public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
+//    print_r($repo);
+//    print_r($package);
+//    parent::install($repo, $package);
+//  }
+//
+//  public function update(InstalledRepositoryInterface $repo, PackageInterface $initial, PackageInterface $target) {
+//    print_r($repo);
+//    print_r($initial);
+//    parent::update($repo, $initial, $target);
+//  }
 
     /** {@inheritDoc} */
     public function getInstallPath(PackageInterface $package)
