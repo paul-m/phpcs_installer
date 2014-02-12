@@ -16,8 +16,8 @@ class Installer extends LibraryInstaller
 {
 
   public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
-    error_log(print_r($repo, TRUE));
-    error_log(print_r($package, TRUE));
+    print_r($repo);
+    print_r($package);
     parent::install($repo, $package);
   }
 
