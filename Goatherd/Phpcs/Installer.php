@@ -2,8 +2,9 @@
 
 namespace Goatherd\Phpcs;
 
-use Composer\Repository\InstalledRepositoryInterface;
 use Composer\Installer\LibraryInstaller;
+use Composer\Repository\InstalledRepositoryInterface;
+use Composer\Package\PackageInterface;
 
 /**
  * Install within CodeSniffer.
