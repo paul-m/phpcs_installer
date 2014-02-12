@@ -2,7 +2,7 @@
 
 namespace Goatherd\Phpcs;
 
-use Composer\Package\PackageInterface;
+use Composer\Repository\InstalledRepositoryInterface;
 use Composer\Installer\LibraryInstaller;
 
 /**
@@ -14,7 +14,7 @@ use Composer\Installer\LibraryInstaller;
 class Installer extends LibraryInstaller
 {
 
-  public function install(InstalledRepositoryInterface $repo, PackageInterface $package){
+  public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
     error_log(print_r($repo, TRUE));
     error_log(print_r($package, TRUE));
     parent::install($repo, $package);
