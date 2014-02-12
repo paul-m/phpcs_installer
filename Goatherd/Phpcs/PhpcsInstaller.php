@@ -16,7 +16,7 @@ use Composer\Util\Filesystem;
  * Name of the package standard defaults to the pretty name.
  * It may be replaced by the extra:phpcs-standard property of the composer.json.
  */
-class Installer extends LibraryInstaller
+class PhpcsInstaller extends LibraryInstaller
 {
 
 //  public function __construct(IOInterface $io, Composer $composer, $type = 'phpcs-standard', Filesystem $filesystem = null) {
