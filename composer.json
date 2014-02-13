@@ -20,7 +20,10 @@
     "squizlabs/php_codesniffer": "1.*"
   },
   "extra": {
-     "class": "Goatherd\\Phpcs\\Installer"
+     "class": "Goatherd\\Phpcs\\Installer",
+     "branch-alias": {
+       "dev-master": "1.x-dev"
+     }
   },
   "autoload": {
     "psr-0": {"Goatherd\\Phpcs\\": ""}

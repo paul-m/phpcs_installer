@@ -6,7 +6,7 @@ phpcs installer
 Features
 --------
 
-* installs PHP_CodeSniffer (1.4+) through composer
+* installs PHP_CodeSniffer (~1) through composer
 * installs `phpcs-standard` type repository with php_codesniffer
 
 Usage
@@ -20,7 +20,7 @@ Add these lines to `composer.json`
   "name": "your-vendor/your-standard",
   "type": "phpcs-standard",
   "require": {
-    "goatherd/phpcs_installer": "*"
+    "goatherd/phpcs_installer": "~1"
   }
 }
 ```
