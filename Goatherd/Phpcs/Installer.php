@@ -32,9 +32,9 @@ class Installer extends LibraryInstaller
     }
 
     foreach (
-      $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
-        RecursiveIteratorIterator::SELF_FIRST) as $item
+      $iterator = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS),
+        \RecursiveIteratorIterator::SELF_FIRST) as $item
     ) {
       if ($item->isDir()) {
         mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
