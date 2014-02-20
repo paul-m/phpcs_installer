@@ -56,6 +56,7 @@ class Installer extends LibraryInstaller
     foreach($standards as $standardName=>$standardPath) {
       $linkPath = $phpcsStandardsPath . '/' . $standardName;
       $targetPath = $package->getTargetDir() . '/' . $standardPath;
+      print("Link: $linkPath Target: $targetPath");
       symlink($targetPath, $linkPath);
     }
   }
