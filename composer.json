@@ -16,10 +16,6 @@
   ],
   "require": {
     "php": ">=5.3",
-    "squizlabs/php_codesniffer": "1.*"
-  },
-  "extra": {
-     "class": "Goatherd\\Phpcs\\Installer"
   },
   "autoload": {
     "psr-0": {"Goatherd\\Phpcs\\": ""}
