@@ -1,6 +1,6 @@
 {
   "name": "goatherd/phpcs_installer",
-  "type": "composer-installer",
+  "type": "composer-plugin",
   "description": "PHP_CodeSniffer standards composer installer",
   "keywords": [
     "phpcs",
