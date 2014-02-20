@@ -43,55 +43,52 @@ class Installer extends LibraryInstaller
     return $standards;
   }
 
-  protected function getPhpcsStandardsPath(PackageInterface $package) {
+  protected function getPhpcsStandardsPath() {
     return $this->vendorDir . '/squizlabs/php_codesniffer/CodeSniffer/Standards';
   }
 
   public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
     // Let LibraryInstaller add the package as normal.
     parent::install($repo, $package);
-    // Do our symlinking.
+    // Do our file manipulations.
     $standards = $this->getPackageStandards($package);
-    $phpcsStandardsPath = $this->getPhpcsStandardsPath($package);
+    $phpcsStandardsPath = $this->getPhpcsStandardsPath();
     foreach($standards as $standardName=>$standardPath) {
-      $newName = implode('/',
+      $destPath = implode('/',
         array(
           $phpcsStandardsPath,
           $standardName,
         )
       );
-//      $linkPath = $phpcsStandardsPath . '/' . $standardName;
-      $oldName = realpath(implode('/',
+      $sourcePath = realpath(implode('/',
         array(
           $this->vendorDir,
           $package->getName(),
           $standardPath
         )
       ));
-//      $targetPath = $this->vendorDir . '/' . $package->getName()  . $standardPath;
-      print("Old: $oldName New: $newName\n");
-      rename($oldName, $newName);
+      print("Old: $sourcePath New: $destPath\n");
+      copy($sourcePath, $destPath);
     }
   }
 
-    /** {@inheritDoc} */
-/*    public function getInstallPath(PackageInterface $package)
-    {
-        $extra = $package->getExtra();
-        $name =
-            isset($extra['phpcs-standard'])
-            ? $extra['phpcs-standard']
-            : $package->getPrettyName();
-        $path =
-            isset($extra['phpcs-path'])
-            ? $extra['phpcs-path']
-            : 'squizlabs/php_codesniffer/CodeSniffer/Standards';
-        // package name must denote a single directoy only
-        $name = str_replace(array('/', '\\'), '-', $name);
-        return $this->vendorDir . DIRECTORY_SEPARATOR . $path . DIRECTORY_SEPARATOR . $name;
-    }*/
+  public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package) {
+    $this->io->write("..hey! uninstalling: " . $package->getName());
+    $standards = $this->getPackageStandards($package);
+    $phpcsStandardsPath = $this->getPhpcsStandardsPath();
+    foreach($standards as $standardName=>$standardPath) {
+      $installedStandardPath = realpath(implode('/',
+        array(
+          $phpcsStandardsPath,
+          $standardName,
+        )
+      ));
+      unlink($installedStandardPath);
+    }
+    parent::uninstall($repo, $package);
+  }
 
-    /** {@inheritDoc} */
+  /** {@inheritDoc} */
     public function supports($packageType)
     {
         return 'phpcs-standard' === $packageType;
