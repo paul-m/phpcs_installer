@@ -43,8 +43,9 @@ class Installer extends LibraryInstaller
     return $standards;
   }
 
-  protected function getPhpcsStandardsPath() {
-    return 'squizlabs/php_codesniffer/CodeSniffer/Standards';
+  protected function getPhpcsStandardsPath(PackageInterface $package) {
+    return $this->vendorDir . 'squizlabs/php_codesniffer/CodeSniffer/Standards';
+    }
   }
 
   public function install(InstalledRepositoryInterface $repo, PackageInterface $package) {
