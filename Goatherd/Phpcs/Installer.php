@@ -52,7 +52,7 @@ class Installer extends LibraryInstaller
     parent::install($repo, $package);
     // Do our symlinking.
     $standards = $this->getPackageStandards($package);
-    $phpcsStandardsPath = $this->getPhpcsStandardsPath();
+    $phpcsStandardsPath = $this->getPhpcsStandardsPath($package);
     foreach($standards as $standardName=>$standardPath) {
       $linkPath = implode('/',
         array(
