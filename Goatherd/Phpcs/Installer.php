@@ -54,20 +54,20 @@ class Installer extends LibraryInstaller
     $standards = $this->getPackageStandards($package);
     $phpcsStandardsPath = $this->getPhpcsStandardsPath($package);
     foreach($standards as $standardName=>$standardPath) {
-      $newName = implode('/',
+      $newName = realpath(implode('/',
         array(
           $phpcsStandardsPath,
           $standardName,
         )
-      );
+      ));
 //      $linkPath = $phpcsStandardsPath . '/' . $standardName;
-      $oldName = implode('/',
+      $oldName = realpath(implode('/',
         array(
           $this->vendorDir,
           $package->getName(),
           $standardPath
         )
-      );
+      ));
 //      $targetPath = $this->vendorDir . '/' . $package->getName()  . $standardPath;
       print("Old: $oldName New: $newName\n");
       rename($oldName, $newName);
