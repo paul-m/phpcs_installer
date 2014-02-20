@@ -1,0 +1,6 @@
+Add extras:
+ - phpcs-standards: array of key/value pairs, key is the standard name, value is the path within the project. Allow '.' path.
+
+Deprecate phpcs-standard.
+
+Installer symlinks package standard path(s) into phpcs source tree. Uninstaller removes symlink.
