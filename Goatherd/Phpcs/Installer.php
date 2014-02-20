@@ -19,6 +19,31 @@ use Composer\Util\Filesystem;
 class Installer extends LibraryInstaller
 {
 
+  protected function copyDirectory($source, $dest) {
+    if (!file_exists($source)) {
+      throw new \InvalidArgumentException('Source file does not exist: ' . $source);
+    }
+    if (file_exists($dest)) {
+      if(!is_dir($dest)) {
+        throw new \InvalidArgumentException('File exists and is not a directory: ' . $dest);
+      }
+      rmdir($dest);
+      mkdir($dest);
+    }
+
+    foreach (
+      $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($source, RecursiveDirectoryIterator::SKIP_DOTS),
+        RecursiveIteratorIterator::SELF_FIRST) as $item
+    ) {
+      if ($item->isDir()) {
+        mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+      } else {
+        copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
+      }
+    }
+  }
+
   protected function getPackageStandards(PackageInterface $package) {
     $standards = array();
     $extra = $package->getExtra();
@@ -68,7 +93,7 @@ class Installer extends LibraryInstaller
         )
       ));
       print("Old: $sourcePath New: $destPath\n");
-      copy($sourcePath, $destPath);
+      $this->copyDirectory($sourcePath, $destPath);
     }
   }
 
