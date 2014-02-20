@@ -54,7 +54,13 @@ class Installer extends LibraryInstaller
     $standards = $this->getPackageStandards($package);
     $phpcsStandardsPath = $this->getPhpcsStandardsPath();
     foreach($standards as $standardName=>$standardPath) {
-      $linkPath = $phpcsStandardsPath . '/' . $standardName;
+      $linkPath = implode('/',
+        array(
+          $phpcsStandardsPath,
+          $standardName,
+        )
+      );
+//      $linkPath = $phpcsStandardsPath . '/' . $standardName;
       $targetPath = $this->vendorDir . $package->getName() . $standardPath;
       print("Link: $linkPath Target: $targetPath");
       symlink($targetPath, $linkPath);
