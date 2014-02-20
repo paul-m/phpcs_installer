@@ -54,14 +54,14 @@ class Installer extends LibraryInstaller
     $standards = $this->getPackageStandards($package);
     $phpcsStandardsPath = $this->getPhpcsStandardsPath($package);
     foreach($standards as $standardName=>$standardPath) {
-      $linkPath = implode('/',
+      $newName = implode('/',
         array(
           $phpcsStandardsPath,
           $standardName,
         )
       );
 //      $linkPath = $phpcsStandardsPath . '/' . $standardName;
-      $targetPath = implode('/',
+      $oldName = implode('/',
         array(
           $this->vendorDir,
           $package->getName(),
@@ -69,8 +69,8 @@ class Installer extends LibraryInstaller
         )
       );
 //      $targetPath = $this->vendorDir . '/' . $package->getName()  . $standardPath;
-      print("Link: $linkPath Target: $targetPath");
-      symlink($targetPath, $linkPath);
+      print("Old: $oldName New: $newName\n");
+      rename($oldName, $newName);
     }
   }
 
