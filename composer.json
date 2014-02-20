@@ -1,5 +1,6 @@
 {
   "name": "goatherd/phpcs_installer",
+  "type": "composer-plugin",
   "description": "PHP_CodeSniffer standards composer installer",
   "keywords": [
     "phpcs",
@@ -15,6 +16,7 @@
     }
   ],
   "require": {
+    "composer-plugin-api": "1.0.0",
     "php": ">=5.3",
     "squizlabs/php_codesniffer": "1.*"
   },
