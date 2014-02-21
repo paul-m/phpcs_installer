@@ -6,10 +6,6 @@ use Composer\Installer\LibraryInstaller;
 use Composer\Repository\InstalledRepositoryInterface;
 use Composer\Package\PackageInterface;
 
-use Composer\Composer;
-use Composer\IO\IOInterface;
-use Composer\Util\Filesystem;
-
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
