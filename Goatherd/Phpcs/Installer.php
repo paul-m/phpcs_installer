@@ -17,60 +17,6 @@ use Symfony\Component\Filesystem\Filesystem;
 class Installer extends LibraryInstaller
 {
 
-  protected function copyDirectory($source, $dest) {
-/*    if (!file_exists($source)) {
-      throw new \InvalidArgumentException('Source file does not exist: ' . $source);
-    }
-    if (file_exists($dest)) {
-      if(!is_dir($dest)) {
-        throw new \InvalidArgumentException('Destination file exists and is not a directory: ' . $dest);
-      }
-      removeDirectory($dest);
-    }
-    mkdir($dest);
-
-    foreach (
-      $iterator = new \RecursiveIteratorIterator(
-        new \RecursiveDirectoryIterator($source, \RecursiveDirectoryIterator::SKIP_DOTS),
-        \RecursiveIteratorIterator::SELF_FIRST) as $item
-    ) {
-      if ($item->isDir()) {
-        mkdir($dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
-      } else {
-        copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
-      }
-    }*/
-    $fs = new Filesystem();
-    $fs->mirror($source, $dest);
-  }
-
-  protected function removeDirectory($dir) {
-    if (!file_exists($dir)) {
-      throw new \InvalidArgumentException('Source file does not exist: ' . $source);
-    }
-    if(!is_dir($dir)) {
-      throw new \InvalidArgumentException('Destination file exists and is not a directory: ' . $dir);
-    }
-
-    $directories = [$dir];
-    foreach (
-      $iterator = new \RecursiveIteratorIterator(
-        new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
-        \RecursiveIteratorIterator::SELF_FIRST)
-      as $item
-    ) {
-      if ($item->isDir()) {
-        array_unshift($directories, $item);
-      }
-      else {
-        unlink($item);
-      }
-    }
-    foreach($directories as $directory) {
-      rmdir($directory);
-    }
-  }
-
   protected function getPackageStandards(PackageInterface $package) {
     $standards = array();
     $extra = $package->getExtra();
@@ -120,23 +66,16 @@ class Installer extends LibraryInstaller
         )
       ));
       $this->io->write("Adding phpcs standard: $standardName");
-      $this->copyDirectory($sourcePath, $destPath);
+      $fs = new Filesystem();
+      $fs->mirror($sourcePath, $destPath);
     }
   }
 
   public function uninstall(InstalledRepositoryInterface $repo, PackageInterface $package) {
-    $this->io->write("..hey! uninstalling: " . $package->getName());
     $standards = $this->getPackageStandards($package);
-    $phpcsStandardsPath = $this->getPhpcsStandardsPath();
-    foreach($standards as $standardName=>$standardPath) {
-      $installedStandardPath = realpath(implode('/',
-        array(
-          $phpcsStandardsPath,
-          $standardName,
-        )
-      ));
-      unlink($installedStandardPath);
-    }
+    $this->io->write("Removing phpcs standards: " . implode(', ', $standards));    
+    $fs = new Filesystem();
+    $fs->remove($standards);
     parent::uninstall($repo, $package);
   }
 
