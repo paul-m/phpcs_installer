@@ -25,11 +25,11 @@ class Installer extends LibraryInstaller
     }
     if (file_exists($dest)) {
       if(!is_dir($dest)) {
-        throw new \InvalidArgumentException('File exists and is not a directory: ' . $dest);
+        throw new \InvalidArgumentException('Destination file exists and is not a directory: ' . $dest);
       }
-      rmdir($dest);
-      mkdir($dest);
+      removeDirectory($dest);
     }
+    mkdir($dest);
 
     foreach (
       $iterator = new \RecursiveIteratorIterator(
@@ -41,6 +41,33 @@ class Installer extends LibraryInstaller
       } else {
         copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
       }
+    }
+  }
+
+  protected function removeDirectory($dir) {
+    if (!file_exists($dir)) {
+      throw new \InvalidArgumentException('Source file does not exist: ' . $source);
+    }
+    if(!is_dir($dir)) {
+      throw new \InvalidArgumentException('Destination file exists and is not a directory: ' . $dir);
+    }
+
+    $directories = [$dir];
+    foreach (
+      $iterator = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($dir, \RecursiveDirectoryIterator::SKIP_DOTS),
+        \RecursiveIteratorIterator::SELF_FIRST)
+      as $item
+    ) {
+      if ($item->isDir()) {
+        array_unshift($directories, $item);
+      }
+      else {
+        unlink($item);
+      }
+    }
+    foreach($directories as $directory) {
+      rmdir($directory);
     }
   }
 
