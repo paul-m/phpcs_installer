@@ -119,7 +119,7 @@ class Installer extends LibraryInstaller
           $standardPath
         )
       ));
-      print("Old: $sourcePath New: $destPath\n");
+      $this->io->write("Adding phpcs standard: $standardName");
       $this->copyDirectory($sourcePath, $destPath);
     }
   }
