@@ -10,6 +10,8 @@ use Composer\Composer;
 use Composer\IO\IOInterface;
 use Composer\Util\Filesystem;
 
+use Symfony\Component\Filesystem\Filesystem;
+
 /**
  * Install within CodeSniffer.
  *
@@ -20,7 +22,7 @@ class Installer extends LibraryInstaller
 {
 
   protected function copyDirectory($source, $dest) {
-    if (!file_exists($source)) {
+/*    if (!file_exists($source)) {
       throw new \InvalidArgumentException('Source file does not exist: ' . $source);
     }
     if (file_exists($dest)) {
@@ -41,7 +43,9 @@ class Installer extends LibraryInstaller
       } else {
         copy($item, $dest . DIRECTORY_SEPARATOR . $iterator->getSubPathName());
       }
-    }
+    }*/
+    $fs = new Filesystem();
+    $fs->mirror($source, $dest);
   }
 
   protected function removeDirectory($dir) {
